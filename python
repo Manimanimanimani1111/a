@@ -1,0 +1,34 @@
+import os
+import msvcrt
+import time
+from random import randint
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def move_character():
+    global character_pos
+    if msvcrt.kbhit():
+        key = msvcrt.getch()
+        if key == b' ':
+            character_pos += 2
+
+character_pos = 0
+obstacle_pos = 30
+
+while True:
+    clear_screen()
+    move_character()
+
+    print(' ' * character_pos + 'O')
+    print(' ' * obstacle_pos + '[]')
+
+    if character_pos == obstacle_pos:
+        print('Game Over! You hit the obstacle!')
+        break
+
+    obstacle_pos -= 1
+    if obstacle_pos == 0:
+        obstacle_pos = 30
+
+    time.sleep(0.1)
